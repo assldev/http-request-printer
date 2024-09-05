@@ -2,8 +2,16 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return respond_with_request_details(request)
+
 @app.route('/<path:path>')
 def catch_all(path):
+    print(f"Received request for path: {path}")
+    return respond_with_request_details(request)
+
+def respond_with_request_details(request):
     # Get details from the request
     method = request.method
     path = request.path
